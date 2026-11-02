@@ -26,7 +26,7 @@ By the end of this page you'll have an assembler, a debugger, and a repeatable
 
 ### Why the `INCLUDE` variable?
 
-From lesson 03 onward our sources start with `include 'win64a.inc'`. That file
+From lesson 02 onward our sources start with `include 'win64a.inc'`. That file
 lives in `C:\fasm\INCLUDE` and pulls in:
 
 * **macros** — `invoke`, `proc`, `struct`, `library`/`import`, ...

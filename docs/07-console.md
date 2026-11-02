@@ -144,17 +144,26 @@ calculation.
 
 ### Breakpoint on input arrival
 
-Break when `ReadFile` returns with data. Set a breakpoint on ReadFile, and
-when it hits, remember the buffer pointer and run to the return:
+Catch `ReadFile`, remember the buffer pointer, and let it return:
 
 ```
-bp KERNELBASE!ReadFile "r $t1 = @rdx; gu; da @$t1"
+bp KERNELBASE!ReadFile
 g
 ```
 
-Type `5 + 6` in the program's console and press Enter: WinDbg stops and prints
-your text — read straight out of the program's buffer. The trailing `..`
-are the CR LF bytes (try `db @$t1 L10`).
+Type `5 + 6` in the program's console and press Enter... nothing happens
+yet — WinDbg stopped at the *start* of `ReadFile`, before your typing was
+read. Now:
+
+```
+r $t1 = @rdx       ; 2nd argument: the buffer
+gu                 ; run until ReadFile returns (it consumes your line)
+da @$t1
+db @$t1 L10
+```
+
+There's your text, read straight out of the program's buffer. The `db` view
+shows the trailing CR LF bytes (`0d 0a`).
 
 ### Watch the parser work
 

@@ -104,8 +104,10 @@ windbgx wc.exe wc.asm
 ### Look at the raw command line
 
 ```
-bp KERNELBASE!GetCommandLineA "gu; da @rax"
+bp KERNELBASE!GetCommandLineA
 g
+gu
+da @rax
 ```
 
 ### Follow the file through the kernel
@@ -145,8 +147,10 @@ windbgx wc.exe does_not_exist.txt
 ```
 
 ```
-bp KERNELBASE!GetLastError "gu; !error @eax"
+bp KERNELBASE!GetLastError
 g
+gu
+!error @eax
 ```
 
 `ERROR_FILE_NOT_FOUND`. Same program, different path through the code — use
